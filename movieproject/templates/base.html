@@ -3,21 +3,31 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>index</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="{% block metadescription %} {% endblock %}">
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link href="{% static 'css/style1.css' %}" rel="stylesheet" >
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
+
+    <!-- icon kit -->
+    <script src="https://kit.fontawesome.com/0d8f0b13af.js" crossorigin="anonymous"></script>
+
+    <title>{% block title %} {% endblock %}</title>
 </head>
 <body>
-<!-- As a heading -->
-<nav class="navbar navbar-dark bg-dark">
-  <span class="navbar-brand mb-0 h1">Online Movie Store </span> 
-    <div class="nav-item">
-        <a class="nav-link btn btn-outline-success my-2" href="{% url 'movieapp:add_movie' %}">Add Movie</a>
-  </div>
-</nav> <br>
 <div class="container">
-{% block body %}
+{% include 'header.html' %}
+{% include 'nav.html' %}
+{% block content %}
 {% endblock %}
 </div>
+{% include 'footer.html' %}
+<script src="{% static 'js/popper.min.js' %}" ></script>
+<script src="{% static 'js/bootstrap.min.js' %}" ></script>
+
 </body>
 </html>
