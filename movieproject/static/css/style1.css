@@ -38,12 +38,13 @@ body{
     padding-left:15px;
 }
 .my_footer{
-    background-color:olive;
+    background-color:yellow;
 }
 .my_footer p{
-    padding-top:8px;
-    padding-bottom:8px;
+    padding-top:12px;
+    padding-bottom:12px;
     text-align:center;
+    font-size:11px;
 }
 
 /** Category page  **/
