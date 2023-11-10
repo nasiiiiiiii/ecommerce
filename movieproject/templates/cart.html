@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block metadescription %}
+        Welcome to mySho cart
+{% endblock %}
+{% block title %}
+        mySho-cart
+{% endblock %}
+{% block content %}
+{% if not cart_items %}
+<div class="container">
+  <div class="text-center">
+    <h2 class="my_title"> Your Shopping Cart </h2>
+    <p> Click <a href="{% url 'shop:allProCat' %}"> here </a> to continue your shopping</p>
+  </div>
+</div>
+{% endif %}
+<div>
+  {% if cart_items %}
+  <div>
+    <h1 class="text-center my_title"> Your Shopping Cart </h1>
+  </div>
+  <div class="row mx-auto">
+
+    <div class="col-12 col-sm-12 col-md-12 col-lg-6 text-center">
+      <table class="table my_table">
+        <thead class="my_thead">
+        <tr>
+          <th colspan="5">
+            Your Cart Items
+          </th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for i in cart_items %}
+        <tr>
+          <td>
+
+              <img src="{{i.product.image.url}}" class="float-left rounded" alt="img-product" width="150px">
+
+          </td>
+
+          <td>
+            {{i.product.name}}
+            <br>
+            SKU: {{i.product.id}}
+            <br>
+            Price: Rs {{i.product.price}}
+            <br>
+            Qty: {{i.quantity}} x Rs {{i}}
+          </td>
+          <td>
+            Rs {{i.sub_total}}
+          </td>
+          {% if i.quantity < i.product.stock %}
+          <td>
+            <a href="{% url 'cart:add_cart' i.product.id %}">
+              <i class="fa-solid fa-plus"> </i>  </a> &nbsp;
+            <a href="{% url 'cart:cart_remove' i.product.id %}">
+              <i class="fa-solid fa-minus"> </i> &nbsp; </a> &nbsp;
+            <a href="{% url 'cart:full_remove' i.product.id %}">
+              <i class="fa-solid fa-trash"> </i> &nbsp; </a>
+          </td>
+          {% else %}
+          <td style="text-justify">
+            <a href="{% url 'cart:cart_remove' i.product.id %}">
+              <i class="fa-solid fa-minus"> </i> </a> &nbsp;
+            <a href="{% url 'cart:full_remove' i.product.id %}">
+              <i class="fa-solid fa-trash"> </i> </a> &nbsp;
+          </td>
+          {% endif %}
+
+        </tr>
+        {% endfor %}
+
+        </tbody>
+      </table>
+    </div>
+    <div class="col-12 col-sm-12 col-md-12 col-lg-6 text-center">
+      <table class="table my_table">
+        <thead class="my_thead">
+        <tr>
+          <th>
+          Checkout
+          </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>
+            Please review your cart items
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Your Total is: {{ total }}
+          </td>
+        </tr>
+        </tbody>
+      </table>
+      <div class="max-auto">
+        <a href="{% url 'shop:allProCat' %}" class="btn btn-secondary"> Continue Shopping </a>
+      </div> <br>
+      <div class="max-auto">
+        <a href="{% url 'shop:allProCat' %}" class="btn btn-secondary"> Payment </a>
+      </div>
+    </div>
+  </div>
+     {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block metadescription %}
+    {% if cat_key %}
+        {{ cat_key.description| truncatewords:155}}
+    {% else %}
+        Welcome to GROCERY
+    {% endif %}
+{% endblock %}
+
+{% block title %}
+    {% if cat_key %}
+        GROCERY-{{ cat_key.name }}
+    {% else %}
+        See our new collection
+    {% endif %}
+{% endblock %}
+{% block content %}
+    {% if cat_key %}
+    <div>
+        <div class="row my_row">
+            <div class="mx-auto">
+                <p> <a href="{% url 'shop:allProCat' %}"> Our product collectoins </a> </p>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+ {% if cat_key %}
+        <div>
+            <img src="{{cat_key.image.url}}" alt="category_image" width="100%"> <br>
+        </div>
+        <div>
+            <h1 class="text-center my_title"> {{cat_key.name}} </h1>
+            <p class="text-justify"> {{cat_key.description}} </p>
+        </div>
+
+    {% else %}
+        <div >
+            <img class="my_image_padding" src="{% static 'img/banner.png' %}" alt="static/img/banner.png"  width="100%" > <br>
+        </div>
+        <div>
+            <h1 class="text-center my_title" > Our popular collections </h1>
+            <p class="text-justify my_content">Trust us!! our website  provides you fresh vegetables and lovely fruit </p>
+        </div>
+    {% endif %}
+<div class="container">
+    <div class="row">
+        {% for product in pro_key.object_list %}
+        <div class="my_bottom_margin col-9 col-sm-12 col-md-4  col-lg-4">
+            <div class="card text-center" >
+                <a class="card-img-top my_image_padding" href="{{product.get_url}}">
+                    <img src="{{product.image.url}}" alt="product image" height="200px" width="auto"> </a>
+                <div>
+                    <h4> {{ product.name }} </h4>
+                    <p> {{ product.price }}</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="mx-auto">
+        {% if pro_key.paginator.num_pages > 1 %}
+        <hr>
+            <div class="text-center">
+                {% for pg in pro_key.paginator.page_range %}
+                    <a href="?page={{pg}}" class="btn btn-dark btn-sm {% if pro_key.number == pg %} active {% endif %}">
+                        {{pg}} </a>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+    <br>
+</div>
+{% endblock %}

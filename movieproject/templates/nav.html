@@ -1,0 +1,35 @@
+<nav class="navbar navbar-default navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+       <button> <a class="nav-link"  href="{% url 'shop:allProCat' %}" style="color:red;">shop</a>
+        </button>
+
+    <ul class="nav navbar-nav mr-auto">
+          <li class="nav-item dropdown {% if 'shop' in request.path %} active {% endif %}">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" >
+              Category </a>
+              <ul class="nav-item dropdown-content" style="list-style-type: none; margin: 0; padding: 0;" >
+              <li> <a class="dropdown-item "  href="{% url 'shop:allProCat' %}">All products </a> </li>
+              {% for i in links %}
+                <li> <a class=" dropdown-item" href="{{i.get_url}}"> {{i.name}} </a> </li>
+               {% endfor %}
+                </ul>
+          </li>
+        {% if item_count > 0 %}
+        <li class="nav-item">
+            <a class="nav-link"  href="{% url 'cart:cart_detail' %}">
+                <i class="fa-solid fa-cart-plus"> </i> ({{item_count}})
+            </a>
+        </li>
+        {% endif %}
+    </ul>
+
+    <form class="form-inline my-2 my-lg-0" action="{% url 'search_app:SearchResult' %}" method="get">
+        {% csrf_token %}
+      <input class="form-control mr-sm-2" name='q' type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+            <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+    </form>
+
+  </div>
+</nav>
